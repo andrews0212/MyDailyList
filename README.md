@@ -1,4 +1,4 @@
-# TaskFlow (o el nombre que prefieras)
+# MyDailyList
 
 Una aplicación de lista de tareas simple y eficiente creada con Flutter.
 
