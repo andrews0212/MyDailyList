@@ -42,6 +42,7 @@ class _NuevaPantallaState extends State<VentanaModificar> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Modificar Tarea"),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
         child: Padding(

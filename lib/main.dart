@@ -45,8 +45,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(90.0), // Ajusta la altura del AppBar
+        child: AppBar(
+          flexibleSpace: Center(
+            child: Image.asset(
+              'lib/imagenes/logo.png',
+              fit: BoxFit.contain, // Ajusta la imagen dentro del flexibleSpace
+            ),
+          ),
+          backgroundColor: Colors.blue,
+          elevation: 0,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

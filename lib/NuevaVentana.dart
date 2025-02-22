@@ -31,6 +31,7 @@ class _NuevaPantallaState extends State<NuevaPantalla> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Nueva Tarea"),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
         child: Padding(
