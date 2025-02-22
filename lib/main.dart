@@ -8,9 +8,7 @@ import 'VentanaModificar.dart';
 
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  sqflite_ffi.sqfliteFfiInit();
-  sqflite_ffi.databaseFactory = sqflite_ffi.databaseFactoryFfi;
+
   runApp(const MyApp());
 }
 
