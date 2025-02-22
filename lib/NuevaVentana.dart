@@ -29,16 +29,18 @@ class _NuevaPantallaState extends State<NuevaPantalla> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text("Nueva Tarea"),
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+    body: SingleChildScrollView( // Envuelve la Column aquí
+    child: Center(
+    child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
               dameTextField("Ingrese el título", tituloController),
               const SizedBox(height: 20),
               dameTextFieldArea(
@@ -118,6 +120,7 @@ class _NuevaPantallaState extends State<NuevaPantalla> {
           ),
         ),
       ),
+    ),
     );
   }
 
