@@ -1,4 +1,4 @@
-# TaskFlow (o el nombre que prefieras)
+# MyDailyList
 
 Una aplicación de lista de tareas simple y eficiente creada con Flutter.
 
@@ -14,7 +14,10 @@ TaskFlow es una aplicación móvil diseñada para ayudarte a organizar tus tarea
 
 ## Capturas de pantalla (Opcional)
 
-(Agrega capturas de pantalla de tu aplicación aquí)
+![image](https://github.com/user-attachments/assets/fe4bcade-00c0-44ce-8548-a0ddbd9a9827)
+
+![image](https://github.com/user-attachments/assets/0c010a4c-de94-4659-bae9-a6d0d739c6fd)
+
 
 ## Funcionalidades
 
