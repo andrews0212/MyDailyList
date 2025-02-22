@@ -99,7 +99,8 @@ class _NuevaPantallaState extends State<NuevaPantalla> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Tarea nuevaTarea = Tarea(
+                  Tarea nuevaTarea = Tarea.withId(
+                    null,
                     tituloController.text,
                     descripcionController.text,
                     _selectedDate,

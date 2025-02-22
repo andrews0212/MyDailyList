@@ -1,59 +1,40 @@
-
+import 'dart:developer';
+import 'package:my_daily_list/BaseDato_Helper.dart';
 import 'package:my_daily_list/Tarea.dart';
 
-class GestionTarea{
-    List<Tarea> _tareas;
+class GestionTarea {
+  BaseDato_Helper baseDato_Helper;
 
-    GestionTarea(this._tareas);
+  GestionTarea(this.baseDato_Helper);
 
-    List<Tarea> get tareas => _tareas;
+  void addTarea(Tarea tarea) {
+    this.baseDato_Helper.add(tarea.toMap());
+  }
 
+  Future<List<Tarea>> findAll() async {
+    List<Map<String, dynamic>> maps = await baseDato_Helper.findAll();
+    return maps.map((map) => Tarea.fromMap(map)).toList();
+  }
 
-  set tareas(List<Tarea> value) {
-      _tareas = value;
-    }
-
-    // metodos crud
-
-    void addTarea(Tarea tarea){
-      this._tareas.add(tarea);
-    }
-    List<Tarea> findAll(){
-      return this._tareas;
-    }
-    Tarea? find(int id){
-      for (Tarea element in tareas){
-        if(element.id == id){
-          return element;
-        }
-      }
+  Future<Tarea?> find(int id) async {
+    List<Tarea> tareas = await findAll();
+    try {
+      return tareas.firstWhere((tarea) => tarea.id == id);
+    } catch (e) {
       return null;
     }
-    bool modificar(Tarea tarea, int id){
-        for(Tarea element in tareas){
-          if(element.id == id){
-            element.titulo = tarea.titulo;
-            element.descripcion = tarea.descripcion;
-            element.fecha_limite = tarea.fecha_limite;
-            element.categoria = tarea.categoria;
-            element.prioridad = tarea.prioridad;
-            return true;
-          }
-        }
-        return false;
-    }
+  }
 
-    bool eliminar(int id){
-      for(Tarea element in tareas){
-        if(element.id == id){
-          tareas.remove(element);
-          return true;
-        }
-      }
-      return false;
-    }
+  Future<bool> modificar(Tarea tarea, int id) async {
+    Map<String, dynamic> tareaMap = tarea.toMap();
+    tareaMap['id'] = id;
+    log(tareaMap.toString());
+    var update = await baseDato_Helper.update(tareaMap);
+    return update == 1;
+  }
 
-
-
-
+  bool eliminar(int id) {
+    var delete = baseDato_Helper.delete(id);
+    return delete == 1;
+  }
 }

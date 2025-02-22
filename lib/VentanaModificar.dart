@@ -41,7 +41,7 @@ class _NuevaPantallaState extends State<VentanaModificar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Nueva Tarea"),
+        title: Text("Modificar Tarea"),
       ),
       body: Center(
         child: Padding(
@@ -110,14 +110,15 @@ class _NuevaPantallaState extends State<VentanaModificar> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Tarea nuevaTarea = Tarea(
+                  Tarea nuevaTarea = Tarea.withId(
+                    widget.tarea.id,
                     tituloController.text,
                     descripcionController.text,
                     _selectedDate,
                     _selectedCategoria,
                     _selectedPrioridad,
                   );
-                  widget.gestionTarea.modificar(nuevaTarea, widget.tarea.id);
+                  widget.gestionTarea.modificar(nuevaTarea, widget.tarea.id!);
                   widget.onTareaAdded();
                   Navigator.pop(context);
                 },

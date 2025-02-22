@@ -1,30 +1,28 @@
+import 'dart:core';
+
 enum Categoria { personal, trabajo, compras, estudio }
 
 enum Prioridad { baja, media, alta }
-class Tarea{
-  static int _contador = 1;
-  final int _id;
+
+class Tarea {
+
+  final int? _id;
   String _titulo;
   String _descripcion;
   DateTime _fecha_limite;
   Categoria _categoria;
   Prioridad _prioridad;
 
-  Tarea(this._titulo, this._descripcion, this._fecha_limite, this._categoria, this._prioridad)
-   : _id = _contador++ {
-  }
+  Tarea.withId(this._id, this._titulo, this._descripcion, this._fecha_limite,
+      this._categoria, this._prioridad);
 
+  int? get id => _id;
 
-  int get id => _id;
-
-  String get titulo {
-    return _titulo;
-  }
+  String get titulo => _titulo;
 
   set titulo(String value) {
     _titulo = value;
   }
-
 
   String get descripcion => _descripcion;
 
@@ -50,11 +48,30 @@ class Tarea{
     _prioridad = value;
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'titulo': titulo,
+      'descripcion': descripcion,
+      'fecha_limite': fecha_limite.millisecondsSinceEpoch,
+      'categoria': categoria.toString().split('.').last,
+      'prioridad': prioridad.toString().split('.').last,
+    };
+  }
+
+  factory Tarea.fromMap(Map<String, dynamic> map) {
+    return Tarea.withId(
+      map['id'],
+      map['titulo'],
+      map['descripcion'],
+      DateTime.fromMillisecondsSinceEpoch(map['fecha_limite']),
+      Categoria.values.firstWhere((e) => e.toString().split('.').last == map['categoria']),
+      Prioridad.values.firstWhere((e) => e.toString().split('.').last == map['prioridad']),
+    );
+  }
+
   @override
   String toString() {
     return 'Tarea{_id: $_id, _titulo: $_titulo, _descripcion: $_descripcion, _fecha_limite: $_fecha_limite, _categoria: $_categoria, _prioridad: $_prioridad}';
   }
-
 }
-
-
