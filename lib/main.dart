@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'My Daily List'),
     );
   }
 }
@@ -82,11 +82,17 @@ Widget tareas({required GestionTarea gestionTarea}) {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
-          color: Colors.amber,
+          color: Colors.white70,
+          border: Border.all(color: Colors.black, style: BorderStyle.solid, width: 3),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.all(8),
-        child: Center(child: Text('${gestionTarea.tareas[index].titulo}')),
+        child: Column(
+            children: <Widget> [Text('${"Titulo: "}${gestionTarea.tareas[index].titulo}\n '
+                '${"Descripcion: "}${gestionTarea.tareas[index].descripcion}\n'
+                '${"Fecha limite: "}${gestionTarea.tareas[index].fecha_limite}\n'
+                '${"Categoria: "}${gestionTarea.tareas[index].categoria}\n'
+                '${"Prioridad: "}${gestionTarea.tareas[index].prioridad}')]),
       );
     },
   );
