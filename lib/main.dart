@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              child: tareas(gestionTarea: _gestionTarea),
+              child: tareas(gestionTarea: _gestionTarea, refreshTareas: _refreshTareas), // Pasar _refreshTareas
             ),
           ],
         ),
@@ -74,8 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+Color obtenerColorPrioridad(Prioridad prioridad) {
+  if (prioridad == Prioridad.alta) {
+    return Colors.red;
+  } else if (prioridad == Prioridad.media) {
+    return Colors.orange;
+  } else {
+    return Colors.blue; // Prioridad baja
+  }
+}
 
-Widget tareas({required GestionTarea gestionTarea}) {
+Widget tareas({required GestionTarea gestionTarea, required VoidCallback refreshTareas}) {
+
   return ListView.builder(
     itemCount: gestionTarea.tareas.length,
     itemBuilder: (BuildContext context, int index) {
@@ -88,11 +98,36 @@ Widget tareas({required GestionTarea gestionTarea}) {
         ),
         padding: EdgeInsets.all(8),
         child: Column(
-            children: <Widget> [Text('${"Titulo: "}${gestionTarea.tareas[index].titulo}\n '
-                '${"Descripcion: "}${gestionTarea.tareas[index].descripcion}\n'
-                '${"Fecha limite: "}${gestionTarea.tareas[index].fecha_limite}\n'
-                '${"Categoria: "}${gestionTarea.tareas[index].categoria}\n'
-                '${"Prioridad: "}${gestionTarea.tareas[index].prioridad}')]),
+          crossAxisAlignment: CrossAxisAlignment.start, // Alinea el texto a la izquierda
+          children: <Widget>[
+            RichText(
+              text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  TextSpan(text: 'Titulo: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: '${gestionTarea.tareas[index].titulo}\n'),
+                  TextSpan(text: 'Descripcion: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: '${gestionTarea.tareas[index].descripcion}\n'),
+                  TextSpan(text: 'Fecha limite: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: '${gestionTarea.tareas[index].fecha_limite.toString().split(' ')[0]}\n'),
+                  TextSpan(text: 'Categoria: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: '${gestionTarea.tareas[index].categoria}\n'),
+                  TextSpan(text: 'Prioridad: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: '${gestionTarea.tareas[index].prioridad.toString().split('.').last.toUpperCase()}', style: TextStyle(color: obtenerColorPrioridad(gestionTarea.tareas[index].prioridad))),
+                ],
+              ),
+            ),
+            SizedBox(height: 8), // Espacio entre el texto y el botón
+            TextButton(
+              onPressed: () {
+                gestionTarea.eliminar(gestionTarea.tareas[index].id);
+                refreshTareas();
+              },
+              child: Text("Eliminar"),
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
+            ),
+          ],
+        ),
       );
     },
   );
@@ -100,7 +135,7 @@ Widget tareas({required GestionTarea gestionTarea}) {
 
 class NuevaPantalla extends StatefulWidget {
   final GestionTarea gestionTarea;
-  final VoidCallback onTareaAdded;
+  final VoidCallback onTareaAdded; // esto lo que hace es que cuando se añada uan taraea lo refresque en el home
 
   const NuevaPantalla({
     super.key,
