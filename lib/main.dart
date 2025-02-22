@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_daily_list/BaseDato_Helper.dart';
 import 'package:my_daily_list/GestionTarea.dart';
@@ -8,6 +10,12 @@ import 'VentanaModificar.dart';
 
 
 void main() {
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    // Inicializa sqflite_ffi solo en plataformas de escritorio
+    sqflite_ffi.sqfliteFfiInit();
+    sqflite_ffi.databaseFactory = sqflite_ffi.databaseFactoryFfi;
+  }
+
 
   runApp(const MyApp());
 }
