@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:my_daily_list/BaseDato_Helper.dart';
 import 'package:my_daily_list/GestionTarea.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart' as sqflite_ffi;
 import 'NuevaVentana.dart';
 import 'Tarea.dart';
 import 'VentanaModificar.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  sqflite_ffi.sqfliteFfiInit();
+  sqflite_ffi.databaseFactory = sqflite_ffi.databaseFactoryFfi;
   runApp(const MyApp());
 }
 
